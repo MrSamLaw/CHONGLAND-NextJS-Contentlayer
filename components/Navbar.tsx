@@ -28,7 +28,7 @@ export function Navbar() {
 							<span className="italic">
 								...live separately from the rest of the people in the city
 							</span>
-							&rdquo; &nbsp;
+							&rdquo;
 							<Link
 								href="https://www.urbandictionary.com/define.php?term=Chongland"
 								className="text-yellow-400"
@@ -53,7 +53,7 @@ export function Navbar() {
 	);
 }
 
-let cx = (...classes) => classes.filter(Boolean).join(" ");
+//let cx = (...classes) => classes.filter(Boolean).join(" ");
 
 function NavItem({ path, name }: { path: string; name: string }) {
 	let pathname = usePathname() || "/";
@@ -66,12 +66,10 @@ function NavItem({ path, name }: { path: string; name: string }) {
 		<Link
 			key={path}
 			href={path}
-			className={cx(
-				"transition-all flex align-middle text-[15px] tracking-[2px] uppercase font-semibold pb-2",
-				{
+			className="transition-all flex align-middle text-[15px] tracking-[2px] uppercase font-semibold pb-2"
+			/*				{
 					"text-neutral-50": !isActive,
-				}
-			)}
+				}*/
 		>
 			<span className="relative py-1 px-2">
 				{name}
