@@ -9,17 +9,15 @@ import readingTime from "reading-time";
 const computedFields = {
 	slug: {
 		type: "string",
-		resolve: (doc: { _raw: { flattenedPath: any } }) =>
-			`/${doc._raw.flattenedPath}`,
+		resolve: (doc) => `/${doc._raw.flattenedPath}`,
 	},
 	slugAsParams: {
 		type: "string",
-		resolve: (doc: { _raw: { flattenedPath: string } }) =>
-			doc._raw.flattenedPath.split("/").slice(1).join("/"),
+		resolve: (doc) => doc._raw.flattenedPath.split("/").slice(1).join("/"),
 	},
 	readingTime: {
 		type: "json",
-		resolve: (doc: { body: { raw: string } }) => readingTime(doc.body.raw),
+		resolve: (doc) => readingTime(doc.body.raw),
 	},
 };
 
