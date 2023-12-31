@@ -24,11 +24,11 @@ export function Navbar() {
 							CHONGLAND
 						</Link>
 						<div className="text-sm">
-							"
+							\"
 							<span className="italic">
 								...live separately from the rest of the people in the city
 							</span>
-							" -{" "}
+							\"
 							<Link
 								href="https://www.urbandictionary.com/define.php?term=Chongland"
 								className="text-yellow-400"
