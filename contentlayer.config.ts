@@ -41,7 +41,16 @@ export const Page = defineDocumentType(() => ({
 			type: 'string',
 		},
 	},
-	computedFields,
+	computedFields: {
+		slug: {
+			type: 'string',
+			resolve: (doc) => `/${doc._raw.flattenedPath}`,
+		},
+		slugAsParams: {
+			type: 'string',
+			resolve: (doc) => doc._raw.flattenedPath.split('/').slice(1).join('/'),
+		},
+	},
 }));
 
 export const Post = defineDocumentType(() => ({
@@ -70,7 +79,20 @@ export const Post = defineDocumentType(() => ({
 			required: true,
 		},
 	},
-	computedFields,
+	computedFields: {
+		slug: {
+			type: 'string',
+			resolve: (doc) => `/${doc._raw.flattenedPath}`,
+		},
+		slugAsParams: {
+			type: 'string',
+			resolve: (doc) => doc._raw.flattenedPath.split('/').slice(1).join('/'),
+		},
+		readingTime: {
+			type: 'json',
+			resolve: (doc) => readingTime(doc.body.raw),
+		},
+	},
 }));
 
 export default makeSource({
