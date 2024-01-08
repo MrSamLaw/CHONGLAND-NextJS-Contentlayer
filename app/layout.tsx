@@ -3,6 +3,7 @@ import { GeistSans } from 'geist/font/sans';
 
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
+import SectionContainer from '@/components/SectionContainer';
 
 export const metadata: Metadata = {
 	title: 'CHONGLAND',
@@ -20,10 +21,10 @@ export default function RootLayout({
 			className={`${GeistSans.variable} text-black bg-white dark:text-white dark:bg-[#111010]`}
 		>
 			<body>
-				<main className='container mx-auto flex flex-col px-2 md:px-0'>
+				<SectionContainer>
 					<Navbar />
-					{children}
-				</main>
+					<main className='mx-auto'>{children}</main>
+				</SectionContainer>
 			</body>
 		</html>
 	);

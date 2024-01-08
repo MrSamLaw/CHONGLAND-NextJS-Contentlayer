@@ -1,7 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Post, allPosts } from "@/.contentlayer/generated";
-import { formatDate } from "@/lib/utils";
+import Image from 'next/image';
+import Link from 'next/link';
+import { Post, allPosts } from '@/.contentlayer/generated';
+import { formatDate } from '@/lib/utils';
 
 export default function Home() {
 	const posts = allPosts.sort((a, b) => {
@@ -11,39 +11,37 @@ export default function Home() {
 	});
 
 	return (
-		<main className="mx-auto w-11/12 flex flex-col px-2 md:px-0">
-			<ul className="mt-4 flex flex-col gap-8">
-				{posts.map((post) => (
-					<li key={post._id}>
-						<PostCard post={post} />
-					</li>
-				))}
-			</ul>
-		</main>
+		<ul className='mt-4 flex flex-col gap-8'>
+			{posts.map((post) => (
+				<li key={post._id}>
+					<PostCard post={post} />
+				</li>
+			))}
+		</ul>
 	);
 }
 
 function PostCard({ post }: { post: Post }) {
 	return (
-		<div>
-			<h2 className="mb-2 tracking-[-0.075em] uppercase font-semibold text-2xl">
-				<Link className=" hover:text-yellow-400" href={post.slug}>
+		<div className='prose max-w-none'>
+			<h2 className='mb-2 tracking-[-0.075em] uppercase font-semibold text-2xl'>
+				<Link className=' hover:text-yellow-400' href={post.slug}>
 					{post.title}
 				</Link>
 			</h2>
-			<div className="mb-2 text-sm">
+			<div className='mb-2 text-sm'>
 				{post.description && (
-					<p className=" mt-0 text-slate-700 dark:text-slate-200">
+					<p className=' mt-0 text-slate-700 dark:text-slate-200'>
 						{post.description}
 					</p>
 				)}
 			</div>
-			<div className="mb-6 text-sm text-slate-600">
-				<time className="order-first mb-4 " dateTime={post.date}>
+			<div className='mb-6 text-sm text-slate-600'>
+				<time className='order-first mb-4 ' dateTime={post.date}>
 					{formatDate(post.date)}
 				</time>
 				<span>{` | `}</span>
-				<span className="text-sm mt-2 uppercase">
+				<span className='text-sm mt-2 uppercase text-yellow-400 font-semibold'>
 					<Link
 						href={`/categories/${encodeURIComponent(
 							post.category.toLowerCase()

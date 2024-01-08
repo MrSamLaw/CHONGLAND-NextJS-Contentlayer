@@ -1,7 +1,7 @@
-import { allPages } from "@/.contentlayer/generated";
-import { Mdx } from "@/components/mdx-components";
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { allPages } from '@/.contentlayer/generated';
+import { Mdx } from '@/components/mdx-components';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 interface PageProps {
 	params: {
@@ -9,8 +9,8 @@ interface PageProps {
 	};
 }
 
-async function getPageFromParams(params: PageProps["params"]) {
-	const slug = params?.slug?.join("/");
+async function getPageFromParams(params: PageProps['params']) {
+	const slug = params?.slug?.join('/');
 	const page = allPages.find((page) => page.slugAsParams === slug);
 
 	if (!page) {
@@ -35,9 +35,9 @@ export async function generateMetadata({
 	};
 }
 
-export async function generateStaticParams(): Promise<PageProps["params"][]> {
+export async function generateStaticParams(): Promise<PageProps['params'][]> {
 	return allPages.map((page) => ({
-		slug: page.slugAsParams.split("/"),
+		slug: page.slugAsParams.split('/'),
 	}));
 }
 
@@ -49,15 +49,19 @@ export default async function PagePage({ params }: PageProps) {
 	}
 
 	return (
-		<main className="flex flex-col md:px-0">
-			<article className="py-6 prose max-w-none dark:prose-invert">
-				<h1 className="mb-2 tracking-[-0.075em] uppercase font-semibold text-5xl">
-					{page.title}
-				</h1>
-				{page.description && <p className="text-xl">{page.description}</p>}
-				<hr />
+		<article className='prose max-w-none'>
+			<h1 className='tracking-[-0.075em] uppercase font-semibold leading-9 mb-4 text-4xl md:text-5xl'>
+				{page.title}
+			</h1>
+			{page.description && (
+				<p className='mt-0 text-slate-700 dark:text-slate-200'>
+					{page.description}
+				</p>
+			)}
+			<hr className='my-8' />
+			<div className='prose-lg lg:prose-xl font-light prose-headings:font-medium prose-headings:tracking-tighter'>
 				<Mdx code={page.body.code} />
-			</article>
-		</main>
+			</div>
+		</article>
 	);
 }

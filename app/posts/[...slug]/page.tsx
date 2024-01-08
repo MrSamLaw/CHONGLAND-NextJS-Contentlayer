@@ -1,9 +1,9 @@
-import { notFound } from "next/navigation";
-import { allPosts } from "@/.contentlayer/generated";
-import Link from "next/link";
-import { Metadata } from "next";
-import { Mdx } from "@/components/mdx-components";
-import { formatDate } from "@/lib/utils";
+import { notFound } from 'next/navigation';
+import { allPosts } from '@/.contentlayer/generated';
+import Link from 'next/link';
+import { Metadata } from 'next';
+import { Mdx } from '@/components/mdx-components';
+import { formatDate } from '@/lib/utils';
 
 interface PostProps {
 	params: {
@@ -11,8 +11,8 @@ interface PostProps {
 	};
 }
 
-async function getPostFromParams(params: PostProps["params"]) {
-	const slug = params?.slug?.join("/");
+async function getPostFromParams(params: PostProps['params']) {
+	const slug = params?.slug?.join('/');
 	const post = allPosts.find((post) => post.slugAsParams === slug);
 
 	if (!post) {
@@ -37,9 +37,9 @@ export async function generateMetadata({
 	};
 }
 
-export async function generateStaticParams(): Promise<PostProps["params"][]> {
+export async function generateStaticParams(): Promise<PostProps['params'][]> {
 	return allPosts.map((post) => ({
-		slug: post.slugAsParams.split("/"),
+		slug: post.slugAsParams.split('/'),
 	}));
 }
 
@@ -50,50 +50,89 @@ export default async function PostPage({ params }: PostProps) {
 		notFound();
 	}
 	return (
-		<main className="flex flex-col md:px-0">
-			<article className="py-6 prose max-w-none dark:prose-invert">
-				<h1 className="mb-2 tracking-[-0.075em] uppercase font-semibold text-5xl">
-					{post.title}
-				</h1>
-				<header className="mb-4 text-sm text-slate-600">
-					{post.description && (
-						<p className="text-xl mt-0 text-slate-700 dark:text-slate-200">
-							{post.description}
-						</p>
-					)}
-					<time className="order-first " dateTime={post.date}>
-						{formatDate(post.date)}
-					</time>
-					<span>{` • `}</span>
-					<span>{post.readingTime.text}</span>
+		<article className='prose max-w-none'>
+			<h1 className='tracking-[-0.075em] uppercase font-semibold leading-9 mb-2 text-4xl md:text-5xl'>
+				{post.title}
+			</h1>
+			<header className='mb-4 text-sm text-slate-500'>
+				{post.description && (
+					<p className='text-lg mt-0 text-slate-700 dark:text-slate-200'>
+						{post.description}
+					</p>
+				)}
+				<time className='order-first ' dateTime={post.date}>
+					{formatDate(post.date)}
+				</time>
+				<span>{` • `}</span>
+				<span>{post.readingTime.text}</span>
 
-					<div className="text-sm mt-2 uppercase">
-						<Link
-							href={`/categories/${encodeURIComponent(
-								post.category.toLowerCase()
-							)}`}
-						>
-							{post.category}
-						</Link>
-					</div>
-					<div className="text-sm mt-2">
-						{post.tags.map((tag) => {
-							return (
-								<Link key={tag.title} href={`/tag/${tag.title}`}>
-									<button className="bg-white hover:bg-gray-100 text-gray-800 font-medium py-0.25 px-1 border border-gray-400 rounded shadow mx-1">
-										#{tag.title}
-									</button>
-								</Link>
-							);
-						})}
-					</div>
-				</header>
-				<div className="prose-xl font-light leading-6">
-					<Mdx code={post.body.code} />
+				<div className='text-sm mt-2 uppercase text-yellow-400 font-semibold'>
+					<Link
+						href={`/categories/${encodeURIComponent(
+							post.category.toLowerCase()
+						)}`}
+					>
+						{post.category}
+					</Link>
 				</div>
-			</article>
-		</main>
+				<div>
+					{post.tags.map((tag) => {
+						return (
+							<Link key={tag.title} href={`/tag/${tag.title}`}>
+								<button className='bg-white hover:bg-slate-800 hover:text-yellow-400 text-gray-800 font-light py-0.25 px-1 border border-gray-400 rounded shadow m-0.5'>
+									#{tag.title}
+								</button>
+							</Link>
+						);
+					})}
+				</div>
+			</header>
+			<div className='prose-lg lg:prose-xl font-light prose-headings:font-medium prose-headings: tracking-tighter'>
+				<Mdx code={post.body.code} />
+			</div>
+		</article>
 	);
+	/*<article className='py-6 prose-sm md:prose dark:prose-invert'>
+			<h1 className='mb-2 tracking-[-0.075em] uppercase font-semibold md:font-semibold text-3xl md:text-5xl'>
+				{post.title}
+			</h1>
+			<header className='mb-4 text-sm text-slate-500'>
+				{post.description && (
+					<p className='text-lg mt-0 text-slate-700 dark:text-slate-200'>
+						{post.description}
+					</p>
+				)}
+				<time className='order-first ' dateTime={post.date}>
+					{formatDate(post.date)}
+				</time>
+				<span>{` • `}</span>
+				<span>{post.readingTime.text}</span>
+
+				<div className='text-sm mt-2 uppercase text-yellow-400 font-semibold'>
+					<Link
+						href={`/categories/${encodeURIComponent(
+							post.category.toLowerCase()
+						)}`}
+					>
+						{post.category}
+					</Link>
+				</div>
+				<div className='text-sm mt-2'>
+					{post.tags.map((tag) => {
+						return (
+							<Link key={tag.title} href={`/tag/${tag.title}`}>
+								<button className='bg-white hover:bg-gray-100 text-gray-800 font-light py-0.25 px-1 border border-gray-400 rounded shadow mx-1'>
+									#{tag.title}
+								</button>
+							</Link>
+						);
+					})}
+				</div>
+			</header>
+			<div className='prose-lg font-light leading-6'>
+				<Mdx code={post.body.code} />
+			</div>
+		</article>*/
 }
 [
 	/* Old Implementation */
