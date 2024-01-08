@@ -30,7 +30,8 @@
 		"**/*.ts",
 		"**/*.tsx",
 		".next/types/**/*.ts",
-		".contentlayer/generated"
+		".contentlayer/generated",
+		"lib/siteMetadata.js"
 	],
 	"exclude": ["node_modules"]
 }
