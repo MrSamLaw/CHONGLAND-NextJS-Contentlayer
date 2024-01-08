@@ -24,12 +24,12 @@ export default function Home() {
 function PostCard({ post }: { post: Post }) {
 	return (
 		<div className='prose max-w-none'>
-			<h2 className='mb-2 tracking-[-0.075em] uppercase font-semibold text-2xl'>
-				<Link className=' hover:text-yellow-400' href={post.slug}>
+			<h2 className='mb-2 tracking-[-0.075em] uppercase font-bold text-2xl'>
+				<Link className=' hover:text-yellow-400 no-underline' href={post.slug}>
 					{post.title}
 				</Link>
 			</h2>
-			<div className='mb-2 text-sm'>
+			<div className='mb-1 text-sm'>
 				{post.description && (
 					<p className=' mt-0 text-slate-700 dark:text-slate-200'>
 						{post.description}
@@ -41,8 +41,9 @@ function PostCard({ post }: { post: Post }) {
 					{formatDate(post.date)}
 				</time>
 				<span>{` | `}</span>
-				<span className='text-sm mt-2 uppercase text-yellow-400 font-semibold'>
+				<span>
 					<Link
+						className='text-sm mt-2 uppercase text-yellow-400 font-semibold no-underline'
 						href={`/categories/${encodeURIComponent(
 							post.category.toLowerCase()
 						)}`}

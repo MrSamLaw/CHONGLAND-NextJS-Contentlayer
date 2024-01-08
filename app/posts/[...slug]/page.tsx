@@ -66,8 +66,9 @@ export default async function PostPage({ params }: PostProps) {
 				<span>{` • `}</span>
 				<span>{post.readingTime.text}</span>
 
-				<div className='text-sm mt-2 uppercase text-yellow-400 font-semibold'>
+				<div className='my-2'>
 					<Link
+						className='text-sm uppercase text-yellow-400 font-semibold no-underline'
 						href={`/categories/${encodeURIComponent(
 							post.category.toLowerCase()
 						)}`}
