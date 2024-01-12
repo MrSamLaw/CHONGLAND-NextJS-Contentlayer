@@ -11,17 +11,19 @@ export function formatDate(date: string) {
 
 	let yearsAgo = currentDate.getFullYear() - targetDate.getFullYear();
 	//console.log('years ' + yearsAgo);
-	let monthsAgo = currentDate.getMonth() - targetDate.getMonth();
+	let monthsAgo = currentDate.getMonth() - targetDate.getMonth() + 12;
 	//console.log('months ' + monthsAgo);
 	let daysAgo = currentDate.getDate() - targetDate.getDate();
 	//console.log('days ' + daysAgo);
 
 	let formattedDate = '';
 
-	if (yearsAgo > 0) {
+	if (yearsAgo > 1) {
 		formattedDate = `${yearsAgo}y ago`;
-	} else if (monthsAgo > 0) {
-		formattedDate = `${monthsAgo}mth ago`;
+	} else if (monthsAgo > 1 && monthsAgo <= 11) {
+		formattedDate = `${monthsAgo} mths ago`;
+	} else if (monthsAgo == 1) {
+		formattedDate = `${monthsAgo} mth ago`;
 	} else if (daysAgo > 0) {
 		formattedDate = `${daysAgo}d ago`;
 	} else {
