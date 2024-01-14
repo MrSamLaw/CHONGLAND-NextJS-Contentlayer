@@ -5,6 +5,7 @@ import './globals.css';
 import SectionContainer from '@/components/SectionContainer';
 import Header from '@/components/Header';
 import siteMetadata from '@/lib/siteMetadata';
+import { PreloadResources } from './preload';
 
 export const metadata: Metadata = {
 	title: {
@@ -35,7 +36,10 @@ export default function RootLayout({
 			<body>
 				<SectionContainer>
 					<Header />
-					<main className='mx-auto'>{children}</main>
+					<main className='mx-auto'>
+						{children}
+						<PreloadResources />
+					</main>
 				</SectionContainer>
 			</body>
 		</html>

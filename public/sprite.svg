@@ -4,8 +4,12 @@
 >
     <defs>
         <symbol
-        	viewBox='0 0 461.08 761.6'
+            id='cldrip'
 			width='25'
+            height='41.29'
+            viewBox='0 0 461.08 761.6'
+            fill='none'
+            xmlns="http://www.w3.org/2000/svg"
 		>
 		    <path
 			    fill='CurrentColor'
