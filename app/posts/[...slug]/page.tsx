@@ -4,13 +4,17 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { Mdx } from '@/components/mdx-components';
 import { formatDate } from '@/lib/utils';
+import { getViewsCount } from '@/db/queries';
+import { ViewCounter } from '@/lib/utils';
+import { Suspense, cache } from 'react';
+import { increment } from 'db/actions';
 
 interface PostProps {
 	params: {
 		slug: string[];
 	};
 }
-
+let incrementViews = cache(increment);
 async function getPostFromParams(params: PostProps['params']) {
 	const slug = params?.slug?.join('/');
 	const post = allPosts.find((post) => post.slugAsParams === slug);
@@ -65,6 +69,12 @@ export default async function PostPage({ params }: PostProps) {
 				</time>
 				<span>{` • `}</span>
 				<span>{post.readingTime.text}</span>
+				<span>{` • `}</span>
+				<span>
+					<Suspense fallback={<p className='h-6' />}>
+						<Views slug={post.slug} />
+					</Suspense>
+				</span>
 
 				<div className='my-2'>
 					<Link
@@ -93,6 +103,12 @@ export default async function PostPage({ params }: PostProps) {
 			</div>
 		</article>
 	);
+
+	async function Views({ slug }: { slug: string }) {
+		let views = await getViewsCount();
+		incrementViews(slug);
+		return <ViewCounter allViews={views} slug={slug} />;
+	}
 	/*<article className='py-6 prose-sm md:prose dark:prose-invert'>
 			<h1 className='mb-2 tracking-[-0.075em] uppercase font-semibold md:font-semibold text-3xl md:text-5xl'>
 				{post.title}

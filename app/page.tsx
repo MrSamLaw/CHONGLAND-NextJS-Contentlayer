@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Post, allPosts } from '@/.contentlayer/generated';
-import { formatDate } from '@/lib/utils';
+import { ViewCounter, formatDate } from '@/lib/utils';
+import { Suspense } from 'react';
+import { getViewsCount } from '@/db/queries';
 
 export default function Home() {
 	const posts = allPosts.sort((a, b) => {
@@ -53,7 +55,18 @@ function PostCard({ post }: { post: Post }) {
 				</span>
 				<span>{` | `}</span>
 				<span>{post.readingTime.text}</span>
+				<span>{` | `}</span>
+				<span>
+					<Suspense fallback={<p className='h-6' />}>
+						<Views slug={post.slug} />
+					</Suspense>
+				</span>
 			</div>
 		</div>
 	);
+}
+
+async function Views({ slug }: { slug: string }) {
+	let views = await getViewsCount();
+	return <ViewCounter allViews={views} slug={slug} />;
 }
