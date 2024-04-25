@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/mdx": "^2.0.10",
+    "@vercel/analytics": "^1.2.2",
     "@vercel/postgres": "^0.5.1",
     "contentlayer": "^0.3.4",
     "dotenv": "^16.3.1",

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { GeistSans } from 'geist/font/sans';
+import { Analytics } from '@vercel/analytics/react';
 
 import './globals.css';
 import SectionContainer from '@/components/SectionContainer';
@@ -41,6 +42,7 @@ export default function RootLayout({
 						<PreloadResources />
 					</main>
 				</SectionContainer>
+				<Analytics />
 			</body>
 		</html>
 	);
